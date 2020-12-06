@@ -428,7 +428,7 @@
     <created_user>-</created_user>
     <created_date>2020/12/05 17:45:39.558</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2020/12/06 12:54:26.038</modified_date>
+    <modified_date>2020/12/06 17:22:51.468</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -491,13 +491,33 @@
   </connection>
   <order>
     <hop>
+      <from>Lookup Affiliation</from>
+      <to>Lookup Department</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Microsoft Excel input</from>
+      <to>Lookup Area</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Lookup Department</from>
+      <to>Lookup Area</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Input Physician</from>
       <to>Lookup Affiliation</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Lookup Affiliation</from>
-      <to>Lookup Department Name</to>
+      <from>Lookup Area</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -653,7 +673,7 @@ FROM hospitaldw.physician
       </output>
     </remotesteps>
     <GUI>
-      <xloc>128</xloc>
+      <xloc>80</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -687,7 +707,7 @@ FROM hospitaldw.physician
       </key>
       <value>
         <name>Department</name>
-        <rename>Department</rename>
+        <rename>DepartmentAffiliation</rename>
         <default/>
         <type>BigNumber</type>
       </value>
@@ -701,13 +721,13 @@ FROM hospitaldw.physician
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>176</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Lookup Department Name</name>
+    <name>Lookup Department</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -728,16 +748,157 @@ FROM hospitaldw.physician
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>Department</name>
+        <name>DepartmentAffiliation</name>
         <field>DepartmentID</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
         <name>Name</name>
-        <rename>Department Name</rename>
+        <rename>Department</rename>
         <default/>
+        <type>None</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Microsoft Excel input</name>
+    <type>ExcelInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
+    <limit>0</limit>
+    <encoding/>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field/>
+    <accept_stepname/>
+    <file>
+      <name>D:\ProjectDW\Data Hospital\Physician-Information.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>physician-name</name>
         <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>singapore-area</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>physician-area</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <spreadsheet_type>SAX_POI</spreadsheet_type>
+    <password>Encrypted </password>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>400</xloc>
+      <yloc>16</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Lookup Area</name>
+    <type>StreamLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>Microsoft Excel input</from>
+    <input_sorted>N</input_sorted>
+    <preserve_memory>Y</preserve_memory>
+    <sorted_list>N</sorted_list>
+    <integer_pair>N</integer_pair>
+    <lookup>
+      <key>
+        <name>Name</name>
+        <field>physician-name</field>
+      </key>
+      <value>
+        <name>singapore-area</name>
+        <rename>singapore-area</rename>
+        <default/>
+        <type>None</type>
       </value>
     </lookup>
     <attributes/>
@@ -750,6 +911,106 @@ FROM hospitaldw.physician
     </remotesteps>
     <GUI>
       <xloc>400</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>EmployeeID</name>
+        <rename>physicianid</rename>
+      </field>
+      <field>
+        <name>Name</name>
+        <rename>nama</rename>
+      </field>
+      <field>
+        <name>Status</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Position</name>
+        <rename/>
+      </field>
+      <field>
+        <name>SSN</name>
+        <rename/>
+      </field>
+      <field>
+        <name>Department</name>
+        <rename/>
+      </field>
+      <field>
+        <name>singapore-area</name>
+        <rename>area</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>HospitalDW</connection>
+    <schema>hospitaldw</schema>
+    <table>dim_physician</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
