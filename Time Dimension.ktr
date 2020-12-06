@@ -428,7 +428,7 @@
     <created_user>-</created_user>
     <created_date>2020/12/04 12:01:33.399</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2020/12/06 18:09:11.575</modified_date>
+    <modified_date>2020/12/06 22:42:10.598</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -694,13 +694,13 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>2020/11/16</nullif>
+        <nullif>2008/5/1</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <limit>20</limit>
+    <limit>4270</limit>
     <never_ending>N</never_ending>
     <interval_in_ms>5000</interval_in_ms>
     <row_time_field>now</row_time_field>
@@ -803,11 +803,9 @@ var MonthName = month_names[Month];</jsScript_script>
       </field>
       <field>
         <name>Quarter</name>
-        <rename/>
       </field>
       <field>
         <name>Year</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
